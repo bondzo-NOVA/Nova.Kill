@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Nova.Kill - Premium Discord Bot</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Arial', sans-serif;
+    }
+
+    body {
+      background-color: #1C2526;
+      color: #ffffff;
+    }
+
+    .hero {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      background: linear-gradient(135deg, #6A0DAD, #1C2526);
+      text-align: center;
+      padding: 20px;
+    }
+
+    .hero h1 {
+      font-size: 4rem;
+      color: #ffffff;
+      margin-bottom: 20px;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+    }
+
+    .hero p {
+      font-size: 1.5rem;
+      color: #d3d3d3;
+      margin-bottom: 30px;
+      max-width: 600px;
+    }
+
+    .hero .cta-button {
+      background-color: #6A0DAD;
+      color: #ffffff;
+      padding: 15px 30px;
+      font-size: 1.2rem;
+      text-decoration: none;
+      border-radius: 5px;
+      transition: background-color 0.3s ease;
+    }
+
+    .hero .cta-button:hover {
+      background-color: #8a2be2;
+    }
+
+    .features {
+      padding: 50px 20px;
+      background-color: #1C2526;
+      text-align: center;
+    }
+
+    .features h2 {
+      font-size: 2.5rem;
+      margin-bottom: 40px;
+      color: #6A0DAD;
+    }
+
+    .feature-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 20px;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .feature-card {
+      background-color: #2a3435;
+      padding: 20px;
+      border-radius: 10px;
+      transition: transform 0.3s ease;
+    }
+
+    .feature-card:hover {
+      transform: translateY(-5px);
+    }
+
+    .feature-card h3 {
+      font-size: 1.5rem;
+      color: #6A0DAD;
+      margin-bottom: 10px;
+    }
+
+    .feature-card p {
+      color: #d3d3d3;
+      font-size: 1rem;
+    }
+
+    .pricing {
+      padding: 50px 20px;
+      background: linear-gradient(135deg, #6A0DAD, #1C2526);
+      text-align: center;
+    }
+
+    .pricing h2 {
+      font-size: 2.5rem;
+      color: #ffffff;
+      margin-bottom: 40px;
+    }
+
+    .pricing-card {
+      background-color: #2a3435;
+      max-width: 400px;
+      margin: 0 auto;
+      padding: 30px;
+      border-radius: 10px;
+    }
+
+    .pricing-card h3 {
+      font-size: 2rem;
+      color: #6A0DAD;
+      margin-bottom: 20px;
+    }
+
+    .pricing-card p {
+      color: #d3d3d3;
+      margin-bottom: 20px;
+    }
+
+    .pricing-card .cta-button {
+      background-color: #6A0DAD;
+      color: #ffffff;
+      padding: 15px 30px;
+      font-size: 1.2rem;
+      text-decoration: none;
+      border-radius: 5px;
+      transition: background-color 0.3s ease;
+    }
+
+    .pricing-card .cta-button:hover {
+      background-color: #8a2be2;
+    }
+
+    footer {
+      background-color: #1C2526;
+      padding: 20px;
+      text-align: center;
+      color: #d3d3d3;
+    }
+
+    footer a {
+      color: #6A0DAD;
+      text-decoration: none;
+      margin: 0 10px;
+    }
+
+    footer a:hover {
+      text-decoration: underline;
+    }
+
+    @media (max-width: 768px) {
+      .hero h1 {
+        font-size: 2.5rem;
+      }
+
+      .hero p {
+        font-size: 1.2rem;
+      }
+
+      .features h2,
+      .pricing h2 {
+        font-size: 2rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <section class="hero">
+    <h1>Nova.Kill</h1>
+    <p>The ultimate Discord bot for community management, engagement, and security. Elevate your server with powerful tools and premium features.</p>
+    <a href="https://discord.com" class="cta-button">Invite Nova.Kill</a>
+  </section>
+
+  <section class="features">
+    <h2>Powerful Features</h2>
+    <div class="feature-grid">
+      <div class="feature-card">
+        <h3>Moderation</h3>
+        <p>Keep your server clean with automated filtering, anti-raid, and anti-nuke features.</p>
+      </div>
+      <div class="feature-card">
+        <h3>Leveling System</h3>
+        <p>Engage your community with a customizable leveling system to reward active members.</p>
+      </div>
+      <div class="feature-card">
+        <h3>Media Tracking</h3>
+        <p>Track and search media from platforms like Last.fm, Spotify, and more.</p>
+      </div>
+      <div class="feature-card">
+        <h3>Custom Commands</h3>
+        <p>Create custom triggers and responses to enhance your server’s interactivity.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="pricing">
+    <h2>Pricing</h2>
+    <div class="pricing-card">
+      <h3>Lifetime Access</h3>
+      <p>Unlock all Nova.Kill features with a one-time payment of $30.</p>
+      <a href="https://discord.com" class="cta-button">Get Started</a>
+    </div>
+  </section>
+
+  <footer>
+    <p>&copy; 2025 Nova.Kill. All rights reserved.</p>
+    <a href="https://discord.com">Join Our Discord</a>
+    <a href="#">Documentation</a>
+    <a href="#">Support</a>
+  </footer>
+</body>
+</html>
