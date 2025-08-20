@@ -7,90 +7,113 @@
     <style>
         body {
             margin: 0;
-            height: 100vh;
             background-color: black;
-            overflow: hidden;
-            font-family: 'Arial', sans-serif;
             color: purple;
-        }
-        .navbar {
-            background-color: #1a1a1a;
-            padding: 1rem;
-            text-align: center;
-            position: fixed;
-            width: 100%;
-            top: 0;
-            z-index: 1000;
-        }
-        .navbar button {
-            background-color: #4B0082;
-            color: white;
-            border: none;
-            padding: 10px 20px;
-            margin: 0 10px;
-            cursor: pointer;
-            border-radius: 5px;
-            transition: background-color 0.3s;
-        }
-        .navbar button:hover {
-            background-color: #6A0DAD;
-        }
-        .content {
-            margin-top: 80px;
-            padding: 20px;
-            text-align: center;
-            position: relative;
-            min-height: calc(100vh - 100px);
-        }
-        .ascii {
-            position: absolute;
-            pointer-events: none;
             font-family: monospace;
-            line-height: 1;
+            text-align: center;
+            overflow-y: auto; /* Enable vertical scrolling */
+            height: auto; /* Allow body to expand with content */
+            min-height: 100vh; /* Ensure at least full viewport height */
         }
         .stars {
-            position: absolute;
+            position: fixed; /* Fixed to stay in background */
             width: 2px;
             height: 2px;
             background-color: purple;
             border-radius: 50%;
             animation: twinkle 2s infinite alternate;
+            z-index: 1; /* Behind content */
         }
         @keyframes twinkle {
             from { opacity: 0.3; }
             to { opacity: 1; }
         }
         .lines {
-            position: absolute;
+            position: fixed; /* Fixed to stay in background */
             background-color: rgba(128, 0, 128, 0.5);
             animation: move 5s infinite linear;
+            z-index: 1; /* Behind content */
         }
         @keyframes move {
             0% { transform: translateY(100vh); }
             100% { transform: translateY(-100vh); }
         }
-        .footer {
-            background-color: #1a1a1a;
-            color: white;
-            text-align: center;
-            padding: 1rem;
-            position: fixed;
-            bottom: 0;
-            width: 100%;
+        .content {
+            position: relative;
+            z-index: 2; /* Above stars and lines */
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .button-container {
+            margin: 20px 0;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+        .glow-button {
+            background: transparent;
+            border: 2px solid purple;
+            color: purple;
+            padding: 10px 20px;
+            font-family: monospace;
+            font-size: 16px;
+            text-decoration: none;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 0 10px purple, 0 0 20px purple;
+            border-radius: 5px;
+        }
+        .glow-button:hover {
+            box-shadow: 0 0 20px purple, 0 0 30px purple;
+            transform: scale(1.05);
         }
     </style>
 </head>
 <body>
-    <div class="navbar">
-        <button onclick="window.location.href='https://example.com'">Home</button>
-        <button onclick="window.location.href='https://example.com/about'">About</button>
-        <button onclick="window.location.href='https://example.com/contact'">Contact</button>
-    </div>
     <div class="content">
-        <div class="ascii" id="asciiText"></div>
-    </div>
-    <div class="footer">
-        &copy; 2025 Novakill. All rights reserved.
+        <pre>
+             ...                            
+             ;::::;                           
+           ;::::; :;                          
+         ;:::::'   :;                         
+        ;:::::;     ;.                        
+       ,:::::'       ;           OOO\         
+       ::::::;       ;          OOOOO\        
+       ;:::::;       ;         OOOOOOOO       
+      ,;::::::;     ;'         / OOOOOOO      
+    ;:::::::::`. ,,,;.        /  / DOOOOOO    
+  .';:::::::::::::::::;,     /  /     DOOOO   
+ ,::::::;::::::;;;;::::;,   /  /        DOOO  
+;`::::::`'::::::;;;::::: ,#/  /          DOOO 
+:`:::::::`;::::::;;::: ;::#  /            DOOO
+::`:::::::`;:::::::: ;::::# /              DOO
+`:`:::::::`;:::::: ;::::::#/               DOO
+ :::`:::::::`;; ;:::::::::##                OO
+ ::::`:::::::`;::::::::;:::#                OO
+ `:::::`::::::::::::;'`:;::#                O 
+  `:::::`::::::::;' /  / `:#                    
+        </pre>
+        <pre>
+ ███▄    █  ▒█████   ██▒   █▓ ▄▄▄            ██ ▄█▀ ██▓ ██▓     ██▓    
+ ██ ▀█   █ ▒██▒  ██▒▓██░   █▒▒████▄          ██▄█▒ ▓██▒▓██▒    ▓██▒    
+▓██  ▀█ ██▒▒██░  ██▒ ▓██  █▒░▒██  ▀█▄       ▓███▄░ ▒██▒▒██░    ▒██░    
+▓██▒  ▐▌██▒▒██   ██░  ▒██ █░░░██▄▄▄▄██      ▓██ █▄ ░██░▒██░    ▒██░    
+▒██░   ▓██░░ ████▓▒░   ▒▀█░   ▓█   ▓██▒ ██▓ ▒██▒ █▄░██░░██████▒░██████▒
+░ ▒░   ▒ ▒ ░ ▒░▒░▒░    ░ ▐░   ▒▒   ▓▒█░ ▒▓▒ ▒ ▒▒ ▓▒░▓  ░ ▒░▓  ░░ ▒░▓  ░
+░ ░░   ░ ▒░  ░ ▒ ▒░    ░ ░░    ▒   ▒▒ ░ ░▒  ░ ░▒ ▒░ ▒ ░░ ░ ▒  ░░ ░ ▒  ░
+   ░   ░ ░ ░ ░ ░ ▒       ░░    ░   ▒    ░   ░ ░░ ░  ▒ ░  ░ ░     ░ ░   
+         ░     ░ ░        ░        ░  ░  ░  ░  ░    ░      ░  ░    ░  ░
+                         ░               ░                             
+        </pre>
+        <div class="button-container">
+            <a href="https://example.com" class="glow-button">Link 1</a>
+            <a href="https://example.com" class="glow-button">Link 2</a>
+            <a href="https://example.com" class="glow-button">Link 3</a>
+        </div>
+        <!-- Additional content to ensure scrollability -->
+        <div style="height: 100vh;"></div>
     </div>
     <script>
         function createStars(count) {
@@ -114,48 +137,8 @@
                 document.body.appendChild(line);
             }
         }
-        createStars(50);
-        createLines(10);
-
-        const asciiText = document.getElementById('asciiText');
-        asciiText.innerHTML = `
-             ...                            ●
-             ;::::;                           ●
-           ;::::; :;                          ●
-         ;:::::'   :;                         ●
-        ;:::::;     ;.                        ●
-       ,:::::'       ;           OOO\\         ●
-       ::::::;       ;          OOOOO\\        ●
-       ;:::::;       ;         OOOOOOOO       ●
-      ,;::::::;     ;'         / OOOOOOO      ●
-    ;:::::::::`. ,,,;.        /  / DOOOOOO    ●
-  .';:::::::::::::::::;,     /  /     DOOOO   ●
- ,::::::;::::::;;;;::::;,   /  /        DOOO  ●
-;`::::::`'::::::;;;::::: ,#/  /          DOOO ●
-:`:::::::`;::::::;;::: ;::#  /            DOOO●
-::`:::::::`;:::::::: ;::::# /              DOO●
-`:`:::::::`;:::::: ;::::::#/               DOO●
- :::`:::::::`;; ;:::::::::##                OO●
- ::::`:::::::`;::::::::;:::#                OO●
- `:::::`::::::::::::;'`:;::#                O ●
-  `:::::`::::::::;' /  / `:#                  ●
-   ::::::`:::::;'  /  /   `#        ●
-            ███▄    █  ▒█████   ██▒   █▓ ▄▄▄            ██ ▄█▀ ██▓ ██▓     ██▓    
-            ██ ▀█   █ ▒██▒  ██▒▓██░   █▒▒████▄          ██▄█▒ ▓██▒▓██▒    ▓██▒    
-           ▓██  ▀█ ██▒▒██░  ██▒ ▓██  █▒░▒██  ▀█▄       ▓███▄░ ▒██▒▒██░    ▒██░    
-           ▓██▒  ▐▌██▒▒██   ██░  ▒██ █░░░██▄▄▄▄██      ▓██ █▄ ░██░▒██░    ▒██░    
-           ▒██░   ▓██░░ ████▓▒░   ▒▀█░   ▓█   ▓██▒ ██▓ ▒██▒ █▄░██░░██████▒░██████▒
-           ░ ▒░   ▒ ▒ ░ ▒░▒░▒░    ░ ▐░   ▒▒   ▓▒█░ ▒▓▒ ▒ ▒▒ ▓▒░▓  ░ ▒░▓  ░░ ▒░▓  ░
-           ░ ░░   ░ ▒░  ░ ▒ ▒░    ░ ░░    ▒   ▒▒ ░ ░▒  ░ ░▒ ▒░ ▒ ░░ ░ ▒  ░░ ░ ▒  ░
-              ░   ░ ░ ░ ░ ░ ▒       ░░    ░   ▒    ░   ░ ░░ ░  ▒ ░  ░ ░     ░ ░   
-                    ░     ░ ░        ░        ░  ░  ░  ░  ░    ░      ░  ░    ░  ░
-                                   ░               ░                             
-        `;
-
-        document.addEventListener('mousemove', (e) => {
-            asciiText.style.left = (e.pageX - asciiText.offsetWidth / 2) + 'px';
-            asciiText.style.top = (e.pageY - asciiText.offsetHeight / 2) + 'px';
-        });
+        createStars(50); // Create 50 purple stars
+        createLines(10); // Create 10 purple lines
     </script>
 </body>
 </html>
