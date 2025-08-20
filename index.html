@@ -11,28 +11,29 @@
             color: purple;
             font-family: monospace;
             text-align: center;
-            overflow-y: auto; /* Enable vertical scrolling */
-            height: auto; /* Allow body to expand with content */
-            min-height: 100vh; /* Ensure at least full viewport height */
+            overflow-y: auto;
+            height: auto;
+            min-height: 100vh;
         }
         .stars {
-            position: fixed; /* Fixed to stay in background */
-            width: 2px;
-            height: 2px;
+            position: fixed;
+            width: 4px;
+            height: 4px;
             background-color: purple;
             border-radius: 50%;
             animation: twinkle 2s infinite alternate;
-            z-index: 1; /* Behind content */
+            z-index: 1;
+            box-shadow: 0 0 8px purple, 0 0 12px purple;
         }
         @keyframes twinkle {
-            from { opacity: 0.3; }
+            from { opacity: 0.5; }
             to { opacity: 1; }
         }
         .lines {
-            position: fixed; /* Fixed to stay in background */
+            position: fixed;
             background-color: rgba(128, 0, 128, 0.5);
             animation: move 5s infinite linear;
-            z-index: 1; /* Behind content */
+            z-index: 1;
         }
         @keyframes move {
             0% { transform: translateY(100vh); }
@@ -40,17 +41,18 @@
         }
         .content {
             position: relative;
-            z-index: 2; /* Above stars and lines */
+            z-index: 2;
             padding: 20px;
             display: flex;
             flex-direction: column;
             align-items: center;
         }
         .button-container {
-            margin: 20px 0;
+            margin: 50px 0;
             display: flex;
-            flex-direction: column;
-            gap: 15px;
+            flex-direction: row;
+            gap: 20px;
+            justify-content: center;
         }
         .glow-button {
             background: transparent;
@@ -64,10 +66,61 @@
             transition: all 0.3s ease;
             box-shadow: 0 0 10px purple, 0 0 20px purple;
             border-radius: 5px;
+            width: 60px;
+            text-align: center;
         }
         .glow-button:hover {
             box-shadow: 0 0 20px purple, 0 0 30px purple;
             transform: scale(1.05);
+        }
+        .console-button {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: transparent;
+            border: 2px solid purple;
+            color: purple;
+            padding: 10px 20px;
+            font-family: monospace;
+            font-size: 16px;
+            cursor: pointer;
+            box-shadow: 0 0 10px purple, 0 0 20px purple;
+            border-radius: 5px;
+            z-index: 3;
+        }
+        .console-button:hover {
+            box-shadow: 0 0 20px purple, 0 0 30px purple;
+        }
+        .console {
+            display: none;
+            position: fixed;
+            bottom: 60px;
+            right: 20px;
+            background: rgba(0, 0, 0, 0.8);
+            border: 2px solid purple;
+            color: purple;
+            padding: 10px;
+            font-family: monospace;
+            font-size: 14px;
+            width: 300px;
+            max-height: 400px;
+            overflow-y: auto;
+            box-shadow: 0 0 10px purple;
+            border-radius: 5px;
+            z-index: 3;
+        }
+        .console input, .console button {
+            background: transparent;
+            border: 1px solid purple;
+            color: purple;
+            font-family: monospace;
+            margin: 5px 0;
+            padding: 5px;
+            width: 100%;
+            box-sizing: border-box;
+        }
+        .console button:hover {
+            box-shadow: 0 0 10px purple;
         }
     </style>
 </head>
@@ -103,19 +156,35 @@
 ▒██░   ▓██░░ ████▓▒░   ▒▀█░   ▓█   ▓██▒ ██▓ ▒██▒ █▄░██░░██████▒░██████▒
 ░ ▒░   ▒ ▒ ░ ▒░▒░▒░    ░ ▐░   ▒▒   ▓▒█░ ▒▓▒ ▒ ▒▒ ▓▒░▓  ░ ▒░▓  ░░ ▒░▓  ░
 ░ ░░   ░ ▒░  ░ ▒ ▒░    ░ ░░    ▒   ▒▒ ░ ░▒  ░ ░▒ ▒░ ▒ ░░ ░ ▒  ░░ ░ ▒  ░
-   ░   ░ ░ ░ ░ ░ ▒       ░░    ░   ▒    ░   ░ ░░ ░  ▒ ░  ░ ░     ░ ░   
+   ░   ░ ░ ░ ░ ░ ▒       ░e    ░   ▒    ░   ░ ░e ░  ▒ ░  ░ ░     ░ ░   
          ░     ░ ░        ░        ░  ░  ░  ░  ░    ░      ░  ░    ░  ░
                          ░               ░                             
         </pre>
         <div class="button-container">
-            <a href="https://example.com" class="glow-button">Link 1</a>
-            <a href="https://example.com" class="glow-button">Link 2</a>
-            <a href="https://example.com" class="glow-button">Link 3</a>
+            <a href="https://example.com" class="glow-button">1</a>
+            <a href="https://example.com" class="glow-button">2</a>
+            <a href="https://example.com" class="glow-button">3</a>
+            <a href="https://example.com" class="glow-button">4</a>
+            <a href="https://example.com" class="glow-button">5</a>
+            <a href="https://example.com" class="glow-button">6</a>
         </div>
         <!-- Additional content to ensure scrollability -->
         <div style="height: 100vh;"></div>
     </div>
+    <button class="console-button" onclick="openConsole()">Consel</button>
+    <div class="console" id="console">
+        <input type="password" id="passwordInput" placeholder="Enter password">
+        <button onclick="checkPassword()">Submit</button>
+        <div id="consoleContent" style="display: none;">
+            <h3>IP Logs</h3>
+            <div id="ipLogs"></div>
+            <input type="text" id="banIpInput" placeholder="Enter IP to ban">
+            <button onclick="banIp()">Ban IP</button>
+        </div>
+    </div>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script>
+        // Create stars and lines
         function createStars(count) {
             for (let i = 0; i < count; i++) {
                 let star = document.createElement('div');
@@ -137,8 +206,71 @@
                 document.body.appendChild(line);
             }
         }
-        createStars(50); // Create 50 purple stars
-        createLines(10); // Create 10 purple lines
+        createStars(50);
+        createLines(10);
+
+        // IP Logging and Banning
+        // Note: Client-side IP banning is insecure and can be bypassed (e.g., by disabling JavaScript).
+        // For production, use a server-side solution with a database and middleware like express-ipfilter.
+        function logIp(ip) {
+            let logs = JSON.parse(localStorage.getItem('ipLogs') || '[]');
+            if (!logs.includes(ip)) {
+                logs.push(ip);
+                localStorage.setItem('ipLogs', JSON.stringify(logs));
+            }
+        }
+
+        function checkBannedIp(ip) {
+            let bannedIps = JSON.parse(localStorage.getItem('bannedIps') || '[]');
+            if (bannedIps.includes(ip)) {
+                window.location = 'https://www.google.com/';
+            }
+        }
+
+        function banIp() {
+            let ip = document.getElementById('banIpInput').value.trim();
+            if (ip) {
+                let bannedIps = JSON.parse(localStorage.getItem('bannedIps') || '[]');
+                if (!bannedIps.includes(ip)) {
+                    bannedIps.push(ip);
+                    localStorage.setItem('bannedIps', JSON.stringify(bannedIps));
+                    alert('IP ' + ip + ' banned.');
+                    updateIpLogs();
+                } else {
+                    alert('IP already banned.');
+                }
+                document.getElementById('banIpInput').value = '';
+            }
+        }
+
+        function updateIpLogs() {
+            let logs = JSON.parse(localStorage.getItem('ipLogs') || '[]');
+            let logsDiv = document.getElementById('ipLogs');
+            logsDiv.innerHTML = logs.map(ip => `<p>${ip}</p>`).join('');
+        }
+
+        function openConsole() {
+            document.getElementById('console').style.display = 'block';
+        }
+
+        function checkPassword() {
+            let password = document.getElementById('passwordInput').value;
+            if (password === 'novakill123') {
+                document.getElementById('passwordInput').style.display = 'none';
+                document.getElementById('consoleContent').style.display = 'block';
+                document.querySelector('.console button').style.display = 'none';
+                updateIpLogs();
+            } else {
+                alert('Incorrect password');
+            }
+        }
+
+        // Fetch and log visitor's IP
+        $.getJSON('https://api.ipify.org?format=jsonp&callback=?', function(data) {
+            let ip = data.ip;
+            logIp(ip);
+            checkBannedIp(ip);
+        });
     </script>
 </body>
 </html>
