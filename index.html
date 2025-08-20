@@ -31,7 +31,7 @@
         }
         .lines {
             position: fixed;
-            background Cypress: rgb(0, 255, 255);
+            background-color: rgba(128, 0, 128, 0.5);
             animation: move 5s infinite linear;
             z-index: 1;
         }
@@ -177,7 +177,7 @@
         <button onclick="checkPassword()">Submit</button>
         <div id="consoleContent" style="display: none;">
             <h3>IP Logs</h3>
-            <div id="ipLogs">No IPs logged yet.</div>
+            <div id="ipLogs"></div>
             <input type="text" id="banIpInput" placeholder="Enter IP to ban">
             <button onclick="banIp()">Ban IP</button>
         </div>
@@ -217,9 +217,7 @@
             if (!logs.includes(ip)) {
                 logs.push(ip);
                 localStorage.setItem('ipLogs', JSON.stringify(logs));
-                console.log('IP logged:', ip); // Debug log
             }
-            updateIpLogs();
         }
 
         function checkBannedIp(ip) {
@@ -242,24 +240,17 @@
                     alert('IP already banned.');
                 }
                 document.getElementById('banIpInput').value = '';
-            } else {
-                alert('Please enter a valid IP address.');
             }
         }
 
         function updateIpLogs() {
             let logs = JSON.parse(localStorage.getItem('ipLogs') || '[]');
             let logsDiv = document.getElementById('ipLogs');
-            if (logs.length === 0) {
-                logsDiv.innerHTML = 'No IPs logged yet.';
-            } else {
-                logsDiv.innerHTML = logs.map(ip => `<p>${ip}</p>`).join('');
-            }
+            logsDiv.innerHTML = logs.map(ip => `<p>${ip}</p>`).join('');
         }
 
         function openConsole() {
             document.getElementById('console').style.display = 'block';
-            updateIpLogs(); // Ensure logs are updated when console opens
         }
 
         function checkPassword() {
@@ -275,37 +266,11 @@
         }
 
         // Fetch and log visitor's IP
-        function fetchIp() {
-            // Try ipify first
-            $.getJSON('https://api.ipify.org?format=jsonp&callback=?')
-                .done(function(data) {
-                    let ip = data.ip;
-                    console.log('IP fetched from ipify:', ip); // Debug log
-                    logIp(ip);
-gence-ipfilter.
-        function logIp(ip) {
-            let logs = JSON.parse(localStorage.getItem('ip Fetched: ${ip}`);
-                    checkBannedIp(ip);
-                })
-                .fail(function() {
-                    console.log('ipify failed, trying ip-api.com');
-                    // Fallback to ip-api.com
-                    $.getJSON('http://ip-api.com/json/?fields=query')
-                        .done(function(data) {
-                            let ip = data.query;
-                            console.log('IP fetched from ip-api:', ip); // Debug log
-                            logIp(ip);
-                            checkBannedIp(ip);
-                        })
-                        .fail(function() {
-                            console.log('Both IP APIs failed');
-                            alert('Failed to fetch IP address. Check your network or browser settings.');
-                            updateIpLogs(); // Update logs even if fetch fails
-                        });
-                });
-        }
-
-        fetchIp(); // Initiate IP fetch
+        $.getJSON('https://api.ipify.org?format=jsonp&callback=?', function(data) {
+            let ip = data.ip;
+            logIp(ip);
+            checkBannedIp(ip);
+        });
     </script>
 </body>
 </html>
