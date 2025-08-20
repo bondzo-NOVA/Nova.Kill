@@ -37,6 +37,9 @@
             -webkit-user-select: none; /* Safari */
             -moz-user-select: none; /* Firefox */
             -ms-user-select: none; /* IE/Edge */
+            -webkit-touch-callout: none; /* iOS Safari */
+            -webkit-user-drag: none; /* Prevent dragging */
+            pointer-events: none; /* Prevent interactions */
         }
         .button-container {
             margin: 50px 0;
@@ -176,14 +179,23 @@
     </div>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script>
+        // Debug logging
+        console.log("Script loaded at " + new Date().toLocaleTimeString());
+
         // Disable right-click
-        document.addEventListener('contextmenu', event => event.preventDefault());
+        document.addEventListener('contextmenu', event => {
+            event.preventDefault();
+            console.log("Right-click prevented");
+            return false;
+        });
 
         // Prevent Ctrl+U (basic deterrent)
         function handleKeyDown(event) {
-            if (event.ctrlKey && event.key === 'u') {
+            console.log("Key pressed: ", event.key, "Ctrl:", event.ctrlKey);
+            if (event.ctrlKey && event.key.toLowerCase() === 'u') {
                 event.preventDefault();
                 alert('Source code viewing is disabled.');
+                console.log("Ctrl+U prevented");
                 return false;
             }
             return true;
@@ -191,7 +203,9 @@
 
         // Web effect
         const canvas = document.getElementById('webCanvas');
+        if (!canvas) console.error("Canvas element not found");
         const ctx = canvas.getContext('2d');
+        if (!ctx) console.error("Canvas context not available");
         canvas.width = window.innerWidth;
         canvas.height = window.innerHeight;
 
@@ -327,30 +341,3 @@
         function updateIpLogs() {
             let logs = JSON.parse(localStorage.getItem('ipLogs') || '[]');
             let logsDiv = document.getElementById('ipLogs');
-            logsDiv.innerHTML = logs.map(ip => `<p>${ip}</p>`).join('');
-        }
-
-        function openConsole() {
-            document.getElementById('console').style.display = 'block';
-        }
-
-        function checkPassword() {
-            let password = document.getElementById('passwordInput').value;
-            if (password === 'novakill123') {
-                document.getElementById('passwordInput').style.display = 'none';
-                document.getElementById('consoleContent').style.display = 'block';
-                document.querySelector('.console button').style.display = 'none';
-                updateIpLogs();
-            } else {
-                alert('Incorrect password');
-            }
-        }
-
-        $.getJSON('https://api.ipify.org?format=jsonp&callback=?', function(data) {
-            let ip = data.ip;
-            logIp(ip);
-            checkBannedIp(ip);
-        });
-    </script>
-</body>
-</html>
