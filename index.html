@@ -32,6 +32,12 @@
             flex-direction: column;
             align-items: center;
         }
+        pre {
+            user-select: none; /* Prevent text selection */
+            -webkit-user-select: none; /* Safari */
+            -moz-user-select: none; /* Firefox */
+            -ms-user-select: none; /* IE/Edge */
+        }
         .button-container {
             margin: 50px 0;
             display: flex;
@@ -109,7 +115,7 @@
         }
     </style>
 </head>
-<body>
+<body oncontextmenu="return false;" onkeydown="return handleKeyDown(event);">
     <canvas id="webCanvas"></canvas>
     <div class="content">
         <pre>
@@ -170,6 +176,19 @@
     </div>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script>
+        // Disable right-click
+        document.addEventListener('contextmenu', event => event.preventDefault());
+
+        // Prevent Ctrl+U (basic deterrent)
+        function handleKeyDown(event) {
+            if (event.ctrlKey && event.key === 'u') {
+                event.preventDefault();
+                alert('Source code viewing is disabled.');
+                return false;
+            }
+            return true;
+        }
+
         // Web effect
         const canvas = document.getElementById('webCanvas');
         const ctx = canvas.getContext('2d');
