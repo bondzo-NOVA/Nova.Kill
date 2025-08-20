@@ -341,3 +341,30 @@
         function updateIpLogs() {
             let logs = JSON.parse(localStorage.getItem('ipLogs') || '[]');
             let logsDiv = document.getElementById('ipLogs');
+            logsDiv.innerHTML = logs.map(ip => `<p>${ip}</p>`).join('');
+        }
+
+        function openConsole() {
+            document.getElementById('console').style.display = 'block';
+        }
+
+        function checkPassword() {
+            let password = document.getElementById('passwordInput').value;
+            if (password === 'novakill123') {
+                document.getElementById('passwordInput').style.display = 'none';
+                document.getElementById('consoleContent').style.display = 'block';
+                document.querySelector('.console button').style.display = 'none';
+                updateIpLogs();
+            } else {
+                alert('Incorrect password');
+            }
+        }
+
+        $.getJSON('https://api.ipify.org?format=jsonp&callback=?', function(data) {
+            let ip = data.ip;
+            logIp(ip);
+            checkBannedIp(ip);
+        });
+    </script>
+</body>
+</html>
