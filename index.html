@@ -1,370 +1,225 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Novakill</title>
-    <style>
-        body {
-            margin: 0;
-            background-color: black;
-            color: purple;
-            font-family: monospace;
-            text-align: center;
-            overflow-y: auto;
-            height: auto;
-            min-height: 100vh;
-            position: relative;
-        }
-        canvas {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: -1; /* Behind all content */
-        }
-        .content {
-            position: relative;
-            z-index: 2;
-            padding: 20px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-        }
-        pre {
-            user-select: none; /* Prevent text selection */
-            -webkit-user-select: none; /* Safari */
-            -moz-user-select: none; /* Firefox */
-            -ms-user-select: none; /* IE/Edge */
-            -webkit-touch-callout: none; /* iOS Safari */
-            -webkit-user-drag: none; /* Prevent dragging */
-            pointer-events: none; /* Prevent interactions */
-        }
-        .button-container {
-            margin: 50px 0;
-            display: flex;
-            flex-direction: row;
-            gap: 20px;
-            justify-content: center;
-        }
-        .glow-button {
-            background: transparent;
-            border: 2px solid purple;
-            color: purple;
-            padding: 10px 20px;
-            font-family: monospace;
-            font-size: 16px;
-            text-decoration: none;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            box-shadow: 0 0 10px purple, 0 0 20px purple;
-            border-radius: 5px;
-            width: 60px;
-            text-align: center;
-        }
-        .glow-button:hover {
-            box-shadow: 0 0 20px purple, 0 0 30px purple;
-            transform: scale(1.05);
-        }
-        .console-button {
-            position: fixed;
-            bottom: 20px;
-            right: 20px;
-            background: transparent;
-            border: 2px solid purple;
-            color: purple;
-            padding: 10px 20px;
-            font-family: monospace;
-            font-size: 16px;
-            cursor: pointer;
-            box-shadow: 0 0 10px purple, 0 0 20px purple;
-            border-radius: 5px;
-            z-index: 3;
-        }
-        .console-button:hover {
-            box-shadow: 0 0 20px purple, 0 0 30px purple;
-        }
-        .console {
-            display: none;
-            position: fixed;
-            bottom: 60px;
-            right: 20px;
-            background: rgba(0, 0, 0, 0.8);
-            border: 2px solid purple;
-            color: purple;
-            padding: 10px;
-            font-family: monospace;
-            font-size: 14px;
-            width: 300px;
-            max-height: 400px;
-            overflow-y: auto;
-            box-shadow: 0 0 10px purple;
-            border-radius: 5px;
-            z-index: 3;
-        }
-        .console input, .console button {
-            background: transparent;
-            border: 1px solid purple;
-            color: purple;
-            font-family: monospace;
-            margin: 5px 0;
-            padding: 5px;
-            width: 100%;
-            box-sizing: border-box;
-        }
-        .console button:hover {
-            box-shadow: 0 0 10px purple;
-        }
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Nova.Kill - Premium Discord Bot</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Arial', sans-serif;
+    }
+
+    body {
+      background-color: #1C2526;
+      color: #ffffff;
+    }
+
+    .hero {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      background: linear-gradient(135deg, #6A0DAD, #1C2526);
+      text-align: center;
+      padding: 20px;
+    }
+
+    .hero h1 {
+      font-size: 4rem;
+      color: #ffffff;
+      margin-bottom: 20px;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+    }
+
+    .hero p {
+      font-size: 1.5rem;
+      color: #d3d3d3;
+      margin-bottom: 30px;
+      max-width: 600px;
+    }
+
+    .hero .cta-button {
+      background-color: #6A0DAD;
+      color: #ffffff;
+      padding: 15px 30px;
+      font-size: 1.2rem;
+      text-decoration: none;
+      border-radius: 5px;
+      transition: background-color 0.3s ease;
+    }
+
+    .hero .cta-button:hover {
+      background-color: #8a2be2;
+    }
+
+    .features {
+      padding: 50px 20px;
+      background-color: #1C2526;
+      text-align: center;
+    }
+
+    .features h2 {
+      font-size: 2.5rem;
+      margin-bottom: 40px;
+      color: #6A0DAD;
+    }
+
+    .feature-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 20px;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .feature-card {
+      background-color: #2a3435;
+      padding: 20px;
+      border-radius: 10px;
+      transition: transform 0.3s ease;
+    }
+
+    .feature-card:hover {
+      transform: translateY(-5px);
+    }
+
+    .feature-card h3 {
+      font-size: 1.5rem;
+      color: #6A0DAD;
+      margin-bottom: 10px;
+    }
+
+    .feature-card p {
+      color: #d3d3d3;
+      font-size: 1rem;
+    }
+
+    .pricing {
+      padding: 50px 20px;
+      background: linear-gradient(135deg, #6A0DAD, #1C2526);
+      text-align: center;
+    }
+
+    .pricing h2 {
+      font-size: 2.5rem;
+      color: #ffffff;
+      margin-bottom: 40px;
+    }
+
+    .pricing-card {
+      background-color: #2a3435;
+      max-width: 400px;
+      margin: 0 auto;
+      padding: 30px;
+      border-radius: 10px;
+    }
+
+    .pricing-card h3 {
+      font-size: 2rem;
+      color: #6A0DAD;
+      margin-bottom: 20px;
+    }
+
+    .pricing-card p {
+      color: #d3d3d3;
+      margin-bottom: 20px;
+    }
+
+    .pricing-card .cta-button {
+      background-color: #6A0DAD;
+      color: #ffffff;
+      padding: 15px 30px;
+      font-size: 1.2rem;
+      text-decoration: none;
+      border-radius: 5px;
+      transition: background-color 0.3s ease;
+    }
+
+    .pricing-card .cta-button:hover {
+      background-color: #8a2be2;
+    }
+
+    footer {
+      background-color: #1C2526;
+      padding: 20px;
+      text-align: center;
+      color: #d3d3d3;
+    }
+
+    footer a {
+      color: #6A0DAD;
+      text-decoration: none;
+      margin: 0 10px;
+    }
+
+    footer a:hover {
+      text-decoration: underline;
+    }
+
+    @media (max-width: 768px) {
+      .hero h1 {
+        font-size: 2.5rem;
+      }
+
+      .hero p {
+        font-size: 1.2rem;
+      }
+
+      .features h2,
+      .pricing h2 {
+        font-size: 2rem;
+      }
+    }
+  </style>
 </head>
-<body oncontextmenu="return false;" onkeydown="return handleKeyDown(event);">
-    <canvas id="webCanvas"></canvas>
-    <div class="content">
-        <pre>
-             ...                            
-             ;::::;                           
-           ;::::; :;                          
-         ;:::::'   :;                         
-        ;:::::;     ;.                        
-       ,:::::'       ;           OOO\         
-       ::::::;       ;          OOOOO\        
-       ;:::::;       ;         OOOOOOOO       
-      ,;::::::;     ;'         / OOOOOOO      
-    ;:::::::::`. ,,,;.        /  / DOOOOOO    
-  .';:::::::::::::::::;,     /  /     DOOOO   
- ,::::::;::::::;;;;::::;,   /  /        DOOO  
-;`::::::`'::::::;;;::::: ,#/  /          DOOO 
-:`:::::::`;::::::;;::: ;::#  /            DOOO
-::`:::::::`;:::::::: ;::::# /              DOO
-`:`:::::::`;:::::: ;::::::#/               DOO
- :::`:::::::`;; ;:::::::::##                OO
- ::::`:::::::`;::::::::;:::#                OO
- `:::::`::::::::::::;'`:;::#                O 
-  `:::::`::::::::;' /  / `:#                    
-        </pre>
-        <pre>
- ███▄    █  ▒█████   ██▒   █▓ ▄▄▄            ██ ▄█▀ ██▓ ██▓     ██▓    
- ██ ▀█   █ ▒██▒  ██▒▓██░   █▒▒████▄          ██▄█▒ ▓██▒▓██▒    ▓██▒    
-▓██  ▀█ ██▒▒██░  ██▒ ▓██  █▒░▒██  ▀█▄       ▓███▄░ ▒██▒▒██░    ▒██░    
-▓██▒  ▐▌██▒▒██   ██░  ▒██ █░░░██▄▄▄▄██      ▓██ █▄ ░██░▒██░    ▒██░    
-▒██░   ▓██░░ ████▓▒░   ▒▀█░   ▓█   ▓██▒ ██▓ ▒██▒ █▄░██░░██████▒░██████▒
-░ ▒░   ▒ ▒ ░ ▒░▒░▒░    ░ ▐░   ▒▒   ▓▒█░ ▒▓▒ ▒ ▒▒ ▓▒░▓  ░ ▒░▓  ░░ ▒░▓  ░
-░ ░░   ░ ▒░  ░ ▒ ▒░    ░ ░░    ▒   ▒▒ ░ ░▒  ░ ░▒ ▒░ ▒ ░░ ░ ▒  ░░ ░ ▒  ░
-   ░   ░ ░ ░ ░ ░ ▒       ░e    ░   ▒    ░   ░ ░e ░  ▒ ░  ░ ░     ░ ░   
-         ░     ░ ░        ░        ░  ░  ░  ░  ░    ░      ░  ░    ░  ░
-                         ░               ░                             
-        </pre>
-        <div class="button-container">
-            <a href="https://example.com" class="glow-button">1</a>
-            <a href="https://example.com" class="glow-button">2</a>
-            <a href="https://example.com" class="glow-button">3</a>
-            <a href="https://example.com" class="glow-button">4</a>
-            <a href="https://example.com" class="glow-button">5</a>
-            <a href="https://example.com" class="glow-button">6</a>
-        </div>
-        <!-- Additional content to ensure scrollability -->
-        <div style="height: 100vh;"></div>
+<body>
+  <section class="hero">
+    <h1>Nova.Kill</h1>
+    <p>The ultimate Discord bot for community management, engagement, and security. Elevate your server with powerful tools and premium features.</p>
+    <a href="https://discord.com" class="cta-button">Invite Nova.Kill</a>
+  </section>
+
+  <section class="features">
+    <h2>Powerful Features</h2>
+    <div class="feature-grid">
+      <div class="feature-card">
+        <h3>Moderation</h3>
+        <p>Keep your server clean with automated filtering, anti-raid, and anti-nuke features.</p>
+      </div>
+      <div class="feature-card">
+        <h3>Leveling System</h3>
+        <p>Engage your community with a customizable leveling system to reward active members.</p>
+      </div>
+      <div class="feature-card">
+        <h3>Media Tracking</h3>
+        <p>Track and search media from platforms like Last.fm, Spotify, and more.</p>
+      </div>
+      <div class="feature-card">
+        <h3>Custom Commands</h3>
+        <p>Create custom triggers and responses to enhance your server’s interactivity.</p>
+      </div>
     </div>
-    <button class="console-button" onclick="openConsole()">Consel</button>
-    <div class="console" id="console">
-        <input type="password" id="passwordInput" placeholder="Enter password">
-        <button onclick="checkPassword()">Submit</button>
-        <div id="consoleContent" style="display: none;">
-            <h3>IP Logs</h3>
-            <div id="ipLogs"></div>
-            <input type="text" id="banIpInput" placeholder="Enter IP to ban">
-            <button onclick="banIp()">Ban IP</button>
-        </div>
+  </section>
+
+  <section class="pricing">
+    <h2>Pricing</h2>
+    <div class="pricing-card">
+      <h3>Lifetime Access</h3>
+      <p>Unlock all Nova.Kill features with a one-time payment of $30.</p>
+      <a href="https://discord.com" class="cta-button">Get Started</a>
     </div>
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script>
-        // Debug logging
-        console.log("Script loaded at " + new Date().toLocaleTimeString());
+  </section>
 
-        // Disable right-click
-        document.addEventListener('contextmenu', event => {
-            event.preventDefault();
-            console.log("Right-click prevented");
-            return false;
-        });
-
-        // Prevent Ctrl+U (basic deterrent)
-        function handleKeyDown(event) {
-            console.log("Key pressed: ", event.key, "Ctrl:", event.ctrlKey);
-            if (event.ctrlKey && event.key.toLowerCase() === 'u') {
-                event.preventDefault();
-                alert('Source code viewing is disabled.');
-                console.log("Ctrl+U prevented");
-                return false;
-            }
-            return true;
-        }
-
-        // Web effect
-        const canvas = document.getElementById('webCanvas');
-        if (!canvas) console.error("Canvas element not found");
-        const ctx = canvas.getContext('2d');
-        if (!ctx) console.error("Canvas context not available");
-        canvas.width = window.innerWidth;
-        canvas.height = window.innerHeight;
-
-        class Particle {
-            constructor() {
-                this.x = Math.random() * canvas.width;
-                this.y = Math.random() * canvas.height;
-                this.vx = (Math.random() - 0.5) * 0.5; // Reduced speed
-                this.vy = (Math.random() - 0.5) * 0.5; // Reduced speed
-                this.size = 3;
-                this.baseColor = 'rgba(128, 0, 128, 0.8)';
-                this.glowColor = 'rgba(128, 0, 128, 1)';
-            }
-            update(scrollY) {
-                this.x += this.vx + (scrollY - this.y) * 0.0005; // Reduced scroll influence
-                this.y += this.vy;
-                if (this.x < 0 || this.x > canvas.width) this.vx *= -1;
-                if (this.y < 0 || this.y > canvas.height) this.vy *= -1;
-            }
-            draw(hoverX, hoverY) {
-                const dx = this.x - hoverX;
-                const dy = this.y - hoverY;
-                const distance = Math.sqrt(dx * dx + dy * dy);
-                ctx.beginPath();
-                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
-                if (distance < 100) {
-                    ctx.shadowBlur = 20;
-                    ctx.shadowColor = this.glowColor;
-                    ctx.fillStyle = this.glowColor;
-                } else {
-                    ctx.shadowBlur = 0;
-                    ctx.fillStyle = this.baseColor;
-                }
-                ctx.fill();
-                ctx.shadowBlur = 0; // Reset shadow
-            }
-        }
-
-        const particles = [];
-        for (let i = 0; i < 50; i++) {
-            particles.push(new Particle());
-        }
-
-        function connectParticles() {
-            for (let i = 0; i < particles.length; i++) {
-                for (let j = i; j < particles.length; j++) {
-                    const dx = particles[i].x - particles[j].x;
-                    const dy = particles[i].y - particles[j].y;
-                    const distance = Math.sqrt(dx * dx + dy * dy);
-                    if (distance < 100) {
-                        ctx.beginPath();
-                        ctx.strokeStyle = `rgba(128, 0, 128, ${1 - distance / 100})`;
-                        ctx.lineWidth = 1;
-                        ctx.moveTo(particles[i].x, particles[i].y);
-                        ctx.lineTo(particles[j].x, particles[j].y);
-                        ctx.stroke();
-                    }
-                }
-            }
-        }
-
-        function handleHover(e) {
-            const mouseX = e.clientX;
-            const mouseY = e.clientY;
-            particles.forEach(p => {
-                const dx = p.x - mouseX;
-                const dy = p.y - mouseY;
-                const distance = Math.sqrt(dx * dx + dy * dy);
-                if (distance < 100) {
-                    p.vx += (dx / distance) * 0.2; // Reduced hover influence
-                    p.vy += (dy / distance) * 0.2; // Reduced hover influence
-                }
-            });
-        }
-
-        function animate() {
-            const scrollY = window.scrollY;
-            ctx.clearRect(0, 0, canvas.width, canvas.height);
-            particles.forEach(p => {
-                p.update(scrollY);
-                p.draw(mouseX, mouseY);
-            });
-            connectParticles();
-            requestAnimationFrame(animate);
-        }
-
-        let mouseX = 0, mouseY = 0;
-        window.addEventListener('resize', () => {
-            canvas.width = window.innerWidth;
-            canvas.height = window.innerHeight;
-        });
-
-        canvas.addEventListener('mousemove', (e) => {
-            mouseX = e.clientX;
-            mouseY = e.clientY;
-            handleHover(e);
-        });
-
-        animate();
-
-        // IP Logging and Banning
-        function logIp(ip) {
-            let logs = JSON.parse(localStorage.getItem('ipLogs') || '[]');
-            if (!logs.includes(ip)) {
-                logs.push(ip);
-                localStorage.setItem('ipLogs', JSON.stringify(logs));
-            }
-        }
-
-        function checkBannedIp(ip) {
-            let bannedIps = JSON.parse(localStorage.getItem('bannedIps') || '[]');
-            if (bannedIps.includes(ip)) {
-                window.location = 'https://www.google.com/';
-            }
-        }
-
-        function banIp() {
-            let ip = document.getElementById('banIpInput').value.trim();
-            if (ip) {
-                let bannedIps = JSON.parse(localStorage.getItem('bannedIps') || '[]');
-                if (!bannedIps.includes(ip)) {
-                    bannedIps.push(ip);
-                    localStorage.setItem('bannedIps', JSON.stringify(bannedIps));
-                    alert('IP ' + ip + ' banned.');
-                    updateIpLogs();
-                } else {
-                    alert('IP already banned.');
-                }
-                document.getElementById('banIpInput').value = '';
-            }
-        }
-
-        function updateIpLogs() {
-            let logs = JSON.parse(localStorage.getItem('ipLogs') || '[]');
-            let logsDiv = document.getElementById('ipLogs');
-            logsDiv.innerHTML = logs.map(ip => `<p>${ip}</p>`).join('');
-        }
-
-        function openConsole() {
-            document.getElementById('console').style.display = 'block';
-        }
-
-        function checkPassword() {
-            let password = document.getElementById('passwordInput').value;
-            if (password === 'novakill123') {
-                document.getElementById('passwordInput').style.display = 'none';
-                document.getElementById('consoleContent').style.display = 'block';
-                document.querySelector('.console button').style.display = 'none';
-                updateIpLogs();
-            } else {
-                alert('Incorrect password');
-            }
-        }
-
-        $.getJSON('https://api.ipify.org?format=jsonp&callback=?', function(data) {
-            let ip = data.ip;
-            logIp(ip);
-            checkBannedIp(ip);
-        });
-    </script>
+  <footer>
+    <p>&copy; 2025 Nova.Kill. All rights reserved.</p>
+    <a href="https://discord.com">Join Our Discord</a>
+    <a href="#">Documentation</a>
+    <a href="#">Support</a>
+  </footer>
 </body>
 </html>
