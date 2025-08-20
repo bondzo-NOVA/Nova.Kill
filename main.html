@@ -1,1 +1,102 @@
-
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Novakill</title>
+    <style>
+        body {
+            margin: 0;
+            height: 100vh;
+            background-color: black;
+            overflow: hidden;
+            color: purple;
+            font-family: monospace;
+            text-align: center;
+        }
+        .stars {
+            position: absolute;
+            width: 2px;
+            height: 2px;
+            background-color: purple;
+            border-radius: 50%;
+            animation: twinkle 2s infinite alternate;
+        }
+        @keyframes twinkle {
+            from { opacity: 0.3; }
+            to { opacity: 1; }
+        }
+        .lines {
+            position: absolute;
+            background-color: rgba(128, 0, 128, 0.5);
+            animation: move 5s infinite linear;
+        }
+        @keyframes move {
+            0% { transform: translateY(100vh); }
+            100% { transform: translateY(-100vh); }
+        }
+    </style>
+</head>
+<body>
+    <pre>
+             ...                            
+             ;::::;                           
+           ;::::; :;                          
+         ;:::::'   :;                         
+        ;:::::;     ;.                        
+       ,:::::'       ;           OOO\         
+       ::::::;       ;          OOOOO\        
+       ;:::::;       ;         OOOOOOOO       
+      ,;::::::;     ;'         / OOOOOOO      
+    ;:::::::::`. ,,,;.        /  / DOOOOOO    
+  .';:::::::::::::::::;,     /  /     DOOOO   
+ ,::::::;::::::;;;;::::;,   /  /        DOOO  
+;`::::::`'::::::;;;::::: ,#/  /          DOOO 
+:`:::::::`;::::::;;::: ;::#  /            DOOO
+::`:::::::`;:::::::: ;::::# /              DOO
+`:`:::::::`;:::::: ;::::::#/               DOO
+ :::`:::::::`;; ;:::::::::##                OO
+ ::::`:::::::`;::::::::;:::#                OO
+ `:::::`::::::::::::;'`:;::#                O 
+  `:::::`::::::::;' /  / `:#                  
+   ::::::`:::::;'  /  /   `#        
+    </pre>
+    <pre>
+ ███▄    █  ▒█████   ██▒   █▓ ▄▄▄            ██ ▄█▀ ██▓ ██▓     ██▓    
+ ██ ▀█   █ ▒██▒  ██▒▓██░   █▒▒████▄          ██▄█▒ ▓██▒▓██▒    ▓██▒    
+▓██  ▀█ ██▒▒██░  ██▒ ▓██  █▒░▒██  ▀█▄       ▓███▄░ ▒██▒▒██░    ▒██░    
+▓██▒  ▐▌██▒▒██   ██░  ▒██ █░░░██▄▄▄▄██      ▓██ █▄ ░██░▒██░    ▒██░    
+▒██░   ▓██░░ ████▓▒░   ▒▀█░   ▓█   ▓██▒ ██▓ ▒██▒ █▄░██░░██████▒░██████▒
+░ ▒░   ▒ ▒ ░ ▒░▒░▒░    ░ ▐░   ▒▒   ▓▒█░ ▒▓▒ ▒ ▒▒ ▓▒░▓  ░ ▒░▓  ░░ ▒░▓  ░
+░ ░░   ░ ▒░  ░ ▒ ▒░    ░ ░░    ▒   ▒▒ ░ ░▒  ░ ░▒ ▒░ ▒ ░░ ░ ▒  ░░ ░ ▒  ░
+   ░   ░ ░ ░ ░ ░ ▒       ░░    ░   ▒    ░   ░ ░░ ░  ▒ ░  ░ ░     ░ ░   
+         ░     ░ ░        ░        ░  ░  ░  ░  ░    ░      ░  ░    ░  ░
+                         ░               ░                             
+    </pre>
+    <script>
+        function createStars(count) {
+            for (let i = 0; i < count; i++) {
+                let star = document.createElement('div');
+                star.className = 'stars';
+                star.style.left = Math.random() * 100 + 'vw';
+                star.style.top = Math.random() * 100 + 'vh';
+                star.style.animationDelay = Math.random() * 2 + 's';
+                document.body.appendChild(star);
+            }
+        }
+        function createLines(count) {
+            for (let i = 0; i < count; i++) {
+                let line = document.createElement('div');
+                line.className = 'lines';
+                line.style.left = Math.random() * 100 + 'vw';
+                line.style.width = Math.random() * 2 + 'px';
+                line.style.height = Math.random() * 50 + 50 + 'vh';
+                line.style.animationDelay = Math.random() * 5 + 's';
+                document.body.appendChild(line);
+            }
+        }
+        createStars(50); // Create 50 purple stars
+        createLines(10); // Create 10 purple lines
+    </script>
+</body>
+</html>
